@@ -12,9 +12,9 @@
    #include <CL/cl.h>
 #endif
 
-char *read_from_file(const char* filename);
+char *read_from_file(const char *filename);
 
-int main(int argc, const char** argv)
+int main(int argc, const char **argv)
 {
    if (argc != 2)
    {
@@ -33,7 +33,7 @@ int main(int argc, const char** argv)
    }
 
    // we need the kernel code as c-string
-   char* kernel_code = read_from_file("square.cl");
+   char *kernel_code = read_from_file("square.cl");
 
    // opencl starts here
 
@@ -189,16 +189,14 @@ int main(int argc, const char** argv)
 }
 
 // http://www.cplusplus.com/reference/clibrary/cstdio/fread/
-char *read_from_file(const char* filename)
+char *read_from_file(const char *filename)
 {
-   char *content;
-
-   FILE * file = fopen(filename, "rb");
+   FILE *file = fopen(filename, "rb");
 
    fseek(file, 0, SEEK_END);
 
    size_t size = ftell(file);
-   content = malloc(size + 1);
+   char *content = malloc(size + 1);
 
    rewind(file);
    fread(content, 1, size, file);
