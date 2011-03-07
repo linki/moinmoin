@@ -23,7 +23,7 @@ int main(int argc, const char **argv)
    // 4 threads per core, defaults to 1 i guess
    int num_threads = 4 * omp_get_num_procs();
     
-   #pragma omp parallel for num_threads(num_threads)
+   #pragma omp parallel for num_threads(num_threads) shared(source, target)
    for (int i = 0; i < count; ++i)
    {
       printf("compute %d * %d with thread %d\n", source[i], source[i], omp_get_thread_num());
