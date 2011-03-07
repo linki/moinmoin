@@ -12,12 +12,14 @@ public:
    {
       _source = source;
       _target = target;
-   };
+   }
 
    void operator()(const tbb::blocked_range<int> &range) const
    {
       for (int i = range.begin(); i != range.end(); ++i)
       {
+         printf("compute %d * %d\n", _source[i], _source[i]);
+         
          _target[i] = _source[i] * _source[i];
       }
    }
@@ -51,7 +53,7 @@ int main(int argc, const char **argv)
    
    for (int i = 0; i < count; ++i)
    {
-      printf("%d * %d = %d\n", source[i], source[i], target[i]);
+      // printf("%d * %d = %d\n", source[i], source[i], target[i]);
    }   
 
    free(source);
