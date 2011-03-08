@@ -1,4 +1,4 @@
-__kernel void square(__global float *source, __global float *target, const int count)                           \
+__kernel void square(__global const float *source, __global float *target, __constant int count)
 {
    int i = get_global_id(0);
    
