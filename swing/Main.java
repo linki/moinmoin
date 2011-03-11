@@ -7,26 +7,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Main {
-	
-	public Main() { }
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Das Fenster zur Welt");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 200);
 
-	public static void main(String[] args) {
+        JButton button1 = new JButton("Klick mich!");
+        frame.add(button1);
 
-		JFrame frame = new JFrame("Das Fenster zur Welt");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 200);
+        button1.addActionListener(new ActionListener() {
+            private Logger logger = Logger.getLogger("HelloSwingFrame");
 
-		JButton button1 = new JButton("Klick mich!");
-		frame.add(button1);
+            public void actionPerformed(ActionEvent e) {
+                logger.info(e.toString());
+            }
+        });
 
-		button1.addActionListener(new ActionListener() {
-			private Logger logger = Logger.getLogger("HelloSwingFrame");
-
-			public void actionPerformed(ActionEvent e) {
-				logger.info(e.toString());
-			}
-		});
-
-		frame.setVisible(true);
-	}
+        frame.setVisible(true);
+    }
 }
