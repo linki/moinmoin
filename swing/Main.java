@@ -16,7 +16,7 @@ public class Main {
         frame.add(button1);
 
         button1.addActionListener(new ActionListener() {
-            private Logger logger = Logger.getLogger("HelloSwingFrame");
+            private transient Logger logger = Logger.getLogger("ActionListener");
 
             public void actionPerformed(ActionEvent e) {
                 logger.info(e.toString());
