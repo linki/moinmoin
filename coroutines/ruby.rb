@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# from: Programming Ruby 1.9
+
 # Ruby 1.9 introduced fibers to the language. Although the name suggests some kind of
 # lightweight thread, in reality Ruby’s fibers are really just a very simple coroutine mechanism.
 # They allow you to write programs that look like you are manually scheduling threads
