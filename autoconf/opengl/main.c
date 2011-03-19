@@ -1,13 +1,23 @@
 // from: http://nehe.gamedev.net/data/lessons/lesson.asp?lesson=02
 #include <stdlib.h>
 
-#ifdef __APPLE__
+#include "config.h"
+
+#ifdef HAVE_OPENGL_GL_H
    #include <OpenGL/gl.h>
-   #include <OpenGL/glu.h>
-   #include <GLUT/glut.h>
 #else
    #include <GL/gl.h>
+#endif
+
+#ifdef HAVE_OPENGL_GLU_H
+   #include <OpenGL/glu.h>
+#else
    #include <GL/glu.h>
+#endif
+
+#ifdef HAVE_GLUT_GLUT_H
+   #include <GLUT/glut.h>
+#else
    #include <GL/glut.h>
 #endif
 
