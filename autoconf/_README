@@ -1,0 +1,124 @@
+http://markuskimius.wikidot.com/programming:tut:autotools:5
+
+-------------------------
+
+autoscan --> creates basic configure.ac
+mv configure.scan configure.ac
+autoheader --> creates basic config.h.in
+aclocal
+automake --> creates Makefile.in aus Makefile.am
+autoconf --> creates configure script
+./configure -> creates config.h and Makefile (has lots of arguments)
+make
+make install (has lots of targets)
+
+-------------------------
+
+make maintainer-clean --> leaves only files that are platform independent and can be checked in
+
+-------------------------
+
+There are several other programs you should know about when using Autoconf and Automake, such as “ifnames” and “autoreconf”.
+
+“ifnames” is a program that identifies constants you use in your C program. It's useful if you want to know what constants you used in your program to make it portable. For example, if you run this program now on “hello.c”, it'll tell you you used two constants, HAVE_GETTIMEOFDAY and HAVE_SYS_TIME_H.
+
+“autoreconf” is a program that runs Autoconf programs for you automatically, so you don't have to remember which Autoconf programs to run and in which order. But it won't work properly until you go through everything once first, so it comes in handy only after you go through the compilation process once through.
+
+-------------------------
+
+Create your sources. (Be sure to have a simple “Makefile” to help Autoconf autodetect things better.)
+Run “autoscan” to generate “configure.scan”.
+Rename “configure.scan” to “configure.ac”.
+Run “autoheader” to generate “config.h.in”.
+Make your source portable by looking at “config.h.in”. (We previously did this at a later step by reading “config.h”, but we can do it in this step by referring to “config.h.in” instead.)
+Create “Makefile.am”.
+Run “automake”.
+Fix errors and run “automake” again.
+Run “aclocal”.
+Run “autoconf”.
+Configure, make, and run!
+
+-------------------------
+
+$ ls
+Makefile  Makefile.am  hello.c
+$ autoscan
+$ mv configure.scan configure.ac
+$ autoheader
+autoheader2.50: `config.h.in' is created
+$ automake
+configure.ac: 4: `automake requires `AM_CONFIG_HEADER', not `AC_CONFIG_HEADER'
+automake: configure.ac: `PACKAGE' not defined in `configure.ac'
+automake: configure.ac: `VERSION' not defined in `configure.ac'
+automake: configure.ac: required file `./install-sh' not found
+automake: configure.ac: required file `./mkinstalldirs' not found
+automake: configure.ac: required file `./missing' not found
+automake: Makefile.am: required file `./INSTALL' not found
+automake: Makefile.am: required file `./NEWS' not found
+automake: Makefile.am: required file `./README' not found
+automake: Makefile.am: required file `./COPYING' not found
+automake: Makefile.am: required file `./AUTHORS' not found
+automake: Makefile.am: required file `./ChangeLog' not found
+configure.ac: 4: required file `./[config.h].in' not found
+automake: configure.ac: AC_ARG_PROGRAM must be used in `configure.ac'
+automake: configure.ac: AC_PROG_INSTALL must be used in `configure.ac'
+$ vi configure.ac
+$ cp -a /usr/share/automake/install-sh .
+$ cp -a /usr/share/automake/mkinstalldirs .
+$ cp -a /usr/share/automake/missing .
+$ touch NEWS README AUTHORS ChangeLog
+$ cp -a /usr/share/automake/INSTALL .
+$ cp -a /usr/share/automake/COPYING .
+$ automake
+$ aclocal    
+$ autoconf 
+$ ./configure
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking whether make sets ${MAKE}... yes
+checking for working aclocal... found
+checking for working autoconf... found
+checking for working automake... found
+checking for working autoheader... found
+checking for working makeinfo... found
+checking for gcc... gcc
+checking for C compiler default output... a.out
+checking whether the C compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking how to run the C preprocessor... gcc -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking whether time.h and sys/time.h may both be included... yes
+checking for gettimeofday... yes
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing default-1 commands
+$ make
+gcc -DHAVE_CONFIG_H -I. -I. -I.     -g -O2 -c hello.c
+gcc  -g -O2  -o hello  hello.o  
+cd . && autoheader
+autoheader2.50: `config.h.in' is updated
+cd . \
+  && CONFIG_FILES= CONFIG_HEADERS=config.h \
+     /bin/sh ./config.status
+config.status: creating config.h
+config.status: executing default-1 commands
+$ ./hello 
+1053959038.671747
+$
