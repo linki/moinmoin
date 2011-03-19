@@ -1,22 +1,34 @@
 # from: http://dandesousa.com/2010/01/16/compiling-opengl-on-mac-os-x-or-linux/
 # on linux do that before: sudo apt-get install freeglut3-dev
 #
-# -framework Carbon doesn't seem to be needed
+# http://www.transmissionzero.co.uk/computing/using-glut-with-mingw/
+# glut32.dll is needed
 #
-# TODO: test on linux
+# TODO: test on linux, mac
 
-UNAME := $(shell uname)
+CC = gcc
+CFLAGS= -Wall
+SOURCE = main.c
+EXECUTABLE = main
+
+UNAME = $(shell uname)
 
 ifeq ($(UNAME), Linux)
 LDFLAGS = -lGL -lglut -lGLU
 endif
 
 ifeq ($(UNAME), Darwin)
-LDFLAGS = -framework OpenGL -framework GLUT -framework Carbon
+LDFLAGS = -framework OpenGL -framework GLUT
 endif
 
-main: main.c
-	gcc -o main main.c $(LDFLAGS) -std=c99 -Wall
+ifeq ($(findstring MINGW32, $(UNAME)), MINGW32)
+LDFLAGS = -lglu32 -lglut32 -lopengl32 -Wl,--subsystem,windows
+EXECUTABLE = main.exe
+endif
+	
+$(EXECUTABLE): $(SOURCE) 
+	$(CC) $(SOURCE) -o $(EXECUTABLE) $(LDFLAGS) $(CFLAGS)
 
 clean:
-	rm -f main
+	$(RM) $(EXECUTABLE)
+
