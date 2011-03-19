@@ -1,0 +1,15 @@
+# ./configure
+
+.deps/
+Makefile
+config.h
+config.log
+config.status
+stamp-h1
+
+# make
+
+autom4te.cache/
+main
+main.o
+
