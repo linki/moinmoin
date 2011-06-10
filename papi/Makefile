@@ -1,5 +1,5 @@
 main: main.c
-	gcc -o main main.c -lpapi -std=c99 -Wall
+	g++ -o main main.c -lpapi -Wall
 
 clean:
 	rm -f main

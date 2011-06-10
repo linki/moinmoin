@@ -15,7 +15,7 @@ int main(int argc, const char **argv)
   
   if (status != PAPI_OK)
   {
-    printf("Can't start PAPI Counters (%d).\n", status);
+    printf("Can't start PAPI Counters (%d, %s).\n", status, PAPI_strerror(status));
     return EXIT_FAILURE;
   }
   
