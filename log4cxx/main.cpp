@@ -1,5 +1,5 @@
 // http://www.yolinux.com/TUTORIALS/Log4cxx.html
-
+#include <stdlib.h>
 #include <log4cxx/logger.h>
 #include <log4cxx/xml/domconfigurator.h>
 
